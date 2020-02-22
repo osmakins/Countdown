@@ -14,6 +14,14 @@ function Counter(newyear) {
   };
 }
 
+// function for animating the span turn
+function animateCounter(span) {
+  span.className = "turn";
+  setTimeout(function () {
+    span.className = "";
+  }, 700);
+}
+
 // Animating the counter
 function startCounter(id, newyear) {
   let roundInterval = setInterval(function () {
@@ -24,6 +32,13 @@ function startCounter(id, newyear) {
         + '<span>' + rounds.hours + '</span>' + '<div>' + ':' + '</div>'
         + '<span>' + rounds.minutes + '</span>' + '<div>' + ':' + '</div>'
         + '<span>' + rounds.seconds + '</span>'
+
+      // span animate
+      let spanturn = document.getElementsByTagName("span");
+      animateCounter(spanturn[3]);
+      if (rounds.seconds == 59) animateCounter(spanturn[3]);
+      if (rounds.minutes == 59 && rounds.seconds == 59) animateCounter(spanturn[1]);
+      if (rounds.hours == 23 && rounds.minutes == 59 && rounds.seconds == 59) animateCounter(spanturn[0]);
     }
     else {
       //check for end of the counter
@@ -37,9 +52,8 @@ function startCounter(id, newyear) {
     }
   }, 1000)
 }
-
 window.addEventListener('load', function () {
-  var newyear = new Date("January 1, 2020 00:00:00");
+  var newyear = new Date("April 1, 2020 00:00:00");
   startCounter("count", newyear);
 })
 
